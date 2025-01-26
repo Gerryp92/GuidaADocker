@@ -1,0 +1,18 @@
+services:
+  reverse_proxy:
+    image: nginx
+    volumes:
+     - Volume1:/etc/nginx/templates
+    ports:
+      - "8080:80"
+    container_name: proxy_nginx
+
+  site1:
+    build:
+      context: ./sito1
+      dockerfile: Dockerfile
+    container_name: sito1
+    volumes:
+       - Volume2:/usr/share/nginx/html
+    ports:
+      - "8081:80"
