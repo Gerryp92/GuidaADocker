@@ -1,5 +1,5 @@
 services:
-  reverse_proxy:
+  sito_base:
     image: nginx
     volumes:
      - Volume1:/etc/nginx/templates
