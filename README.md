@@ -425,5 +425,32 @@ docker compose up -d
 ```
 Un altro esempio ancora più interessante è il caso presente di EsempioMulti.
 In questo caso verranno avviati 2 container nginx.
+```bash
+services:
+  sito_base:
+    image: nginx
+    volumes:
+     - Volume1:/etc/nginx/templates
+    ports:
+      - "8080:80"
+    container_name: sito_base
 
+  site1:
+    build:
+      context: ./sito1
+      dockerfile: Dockerfile
+    container_name: sito1
+    volumes:
+       - Volume2:/usr/share/nginx/html
+    ports:
+      - "8081:80"
+```
+Il primo container è un classico server web ngnix con port forwarding della porta 8080 sulla porta 80 del container.
+Il secondo container invece utilizza il comando build e il context mi indica dove trovare il Dockerfile, ovvero nella cartella sito1.
+Quindi prende una immagine personalizzata.
+Infatti viene fatta la build dell'immagine e poi gli vengono assegnati nome, volumi e porte.
+In questo caso specifico viene inserita la pagina web: index.html durante la costruzione dell'immagine
+
+Da qui si può intuire che si potrebbero inserire n immagini con docker-compose e fare delle personalizzazioni ad hoc
+sulle immagini prima di lanciare il comando **docker compose up**
 

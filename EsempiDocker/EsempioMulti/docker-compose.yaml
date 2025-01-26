@@ -5,7 +5,7 @@ services:
      - Volume1:/etc/nginx/templates
     ports:
       - "8080:80"
-    container_name: proxy_nginx
+    container_name: sito_base
 
   site1:
     build:
