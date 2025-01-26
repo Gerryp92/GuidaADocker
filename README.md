@@ -381,3 +381,49 @@ Serve se vuoi arrestare ed eliminare tutti i container, i network e i volumi cre
 ```bash
 docker compose down 
 ```
+Passiamo a degli esempi pratici, nella cartella EsempiDocker ce ne sono 2 che sottolineano la potenza di questo strumento.
+Nella cartella Esempio Wordpress vediamo come è composto il file .yaml
+
+```bash 
+
+services:
+
+  wordpress:
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
+    volumes:
+      - wordpress:/var/www/html
+  db:
+    image: mysql:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  wordpress:
+  db:
+```
+
+In questo file yaml sono presenti 2 servizi, ovvero sarà fatto il deploy di 2 container
+Il servizio Wordpress e il servizio MySql con il comando seguente.
+I 2 container saranno lanciato con tutto quello che serve le variabili d'ambiente e i volumi che contengono i dati
+
+```bash
+docker compose up -d
+```
+Un altro esempio ancora più interessante è il caso presente di EsempioMulti.
+In questo caso verranno avviati 2 container nginx.
+
+
